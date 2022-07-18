@@ -173,7 +173,6 @@ ul.navbar-nav li.active a, ul.navbar-nav li a:hover{
     display: flex;
     font-size: 15px;
     color: #000;
-    background-color: rgb(241, 237, 237);
 }
 .productHolder{
     justify-content: center;
