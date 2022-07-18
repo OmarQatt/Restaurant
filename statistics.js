@@ -13,51 +13,49 @@ allFood.push(this);
 }
 
 
-function getData() {
-    
-let retriveMenu =localStorage.getItem('Foods')
-let parseMenu = JSON.parse(retriveMenu)
 
-if(parseMenu != null)
-{
-    for (let i = 0; i < parseMenu.length; i++) {
-       new Food(parseMenu[i].foodID,parseMenu[i].foodName,parseMenu[i].type,parseMenu[i].price)
-        
-    }
-}
-
-
-// var id =document.getElementById('ID').innerHTML =foodID
-// var name =document.getElementById('Name').innerHTML = foodName
-// var ty = document.getElementById('Type').innerHTML = type
-// var pri=document.getElementById('Price').innerHTML = price
-
-var table = document.getElementById('myTable')
-for (let j = 0; j < parseMenu.length; j++) {
-    
-    var row =  `
-<tr>
-<td id="ID">${parseMenu[j].foodID}</td>
-<td id="Name">${parseMenu[j].foodName}</td>
-<td id="Type">${parseMenu[j].type}</td>
-<td id="Price">${parseMenu[j].price} JD</td>
-</tr>
-`
-table.innerHTML += row
-} 
-  }
 
 getData()
+pieChar()
+barChart()
 
 
+
+function getData() {
+    
+  let retriveMenu =localStorage.getItem('Foods')
+  let parseMenu = JSON.parse(retriveMenu)
+  
+  if(parseMenu != null)
+  {
+      for (let i = 0; i < parseMenu.length; i++) {
+         new Food(parseMenu[i].foodID,parseMenu[i].foodName,parseMenu[i].type,parseMenu[i].price)
+          
+      }
+  }
+  
+  var table = document.getElementById('myTable')
+  for (let j = 0; j < parseMenu.length; j++) {
+      
+      var row =  `
+  <tr>
+  <td id="ID">${parseMenu[j].foodID}</td>
+  <td id="Name">${parseMenu[j].foodName}</td>
+  <td id="Type">${parseMenu[j].type}</td>
+  <td id="Price">${parseMenu[j].price} JD</td>
+  </tr>
+  `
+  table.innerHTML += row
+  } 
+    }
 
 
 function pieChar() {
   
 let map = new Map();
-for (let i = 0; i < allFood.length; i++) {
-  if(!map.has(allFood[i].type)){
-   map.set(allFood[i].type, 1)
+for (let i = 0; i < allFood.length; i++) { 
+  if(!map.has(allFood[i].type)){     
+   map.set(allFood[i].type, 1)       
   } else {
     map.set(allFood[i].type, (map.get(allFood[i].type) + 1))
   }
@@ -82,31 +80,41 @@ for (let i = 0; i < allFood.length; i++) {
     options: {
       title: {
         display: true,
-        text: "World Wide Wine Production 2018"
+        text: "Best Type Food Ever"
       }
     }
   });
 }
 
 
+
+
 function barChart(){
 const names = [];
 const prices = [];
+const colors = [];
 for (let i = 0; i < allFood.length; i++) {
   names.push(allFood[i].foodName);
   prices.push(allFood[i].price)
+ colors[i]= generateRandomColor()
 }
 
-  // var xValues = ["Italy", "France", "Spain"];
- // var yValues = [55, 49, 44, 24, 15];
-var barColors = ["red", "green","blue","orange","brown"];
+
+function generateRandomColor(){
+  let maxVal = 0xFFFFFF; // 16777215
+  let randomNumber = Math.random() * maxVal; 
+  randomNumber = Math.floor(randomNumber);
+  randomNumber = randomNumber.toString(16);
+  let randColor = randomNumber.padStart(6, 0);   
+  return `#${randColor.toUpperCase()}`
+}
 
 const myChart = new Chart("myChartBar", {
   type: "bar",
   data: {
     labels: names,
     datasets: [{
-      backgroundColor: barColors,
+      backgroundColor: colors,
       data: prices
     }]
   },
@@ -114,7 +122,7 @@ const myChart = new Chart("myChartBar", {
     legend: {display: false},
     title: {
       display: true,
-      text: "World Wine Production 2018"
+      text: "The Price For Different Food"
     },
     scales: {
       yAxes: [{
@@ -127,8 +135,7 @@ const myChart = new Chart("myChartBar", {
   }
 });
 }
-pieChar()
-barChart()
+
 
 
       

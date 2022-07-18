@@ -82,7 +82,6 @@ h6 {
     padding: 20px 0;
     position: relative;
     transition: all 1s;
-    background: silver;
 }
 header.header-section.fixed {
     position: fixed;
@@ -168,13 +167,12 @@ ul.navbar-nav li.active a, ul.navbar-nav li a:hover{
     color: #009879;
 }
 .foodSection{
-    padding: 300px;
+    padding-top: 120px;
     justify-content: center;
     align-items: center;
     display: flex;
     font-size: 15px;
     color: #000;
-    background-color: rgb(241, 237, 237);
 }
 .productHolder{
     justify-content: center;
